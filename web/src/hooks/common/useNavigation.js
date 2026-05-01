@@ -54,6 +54,12 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
         itemKey: 'aiplanhub',
         to: '/aiplanhub',
       },
+      {
+        text: '💰 充值',
+        itemKey: 'recharge',
+        isExternal: true,
+        externalLink: 'https://pay.ldxp.cn/shop/mirage',
+      },
       ...(docsLink
         ? [
             {
@@ -73,8 +79,8 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
 
     // 根据配置过滤导航链接
     return allLinks.filter((link) => {
-      if (link.itemKey === 'aiplanhub') {
-        return true; // AI 方案始终显示
+      if (link.itemKey === 'aiplanhub' || link.itemKey === 'recharge') {
+        return true; // AI 方案和充值始终显示
       }
       if (link.itemKey === 'docs') {
         return docsLink && modules.docs;
