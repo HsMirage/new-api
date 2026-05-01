@@ -530,13 +530,12 @@ func (user *User) Edit(updatePassword bool) error {
 		updates["password"] = newUser.Password
 	}
 
-	DB.First(&user, user.Id)
-	if err = DB.Model(user).Updates(updates).Error; err != nil {
+	if err = DB.Model(&User{}).Where("id = ?", user.Id).Updates(updates).Error; err != nil {
 		return err
 	}
 
-	// Update cache
-	return updateUserCache(*user)
+	// Update cache with the new values (use newUser which contains the updated quota)
+	return updateUserCache(newUser)
 }
 
 func (user *User) ClearBinding(bindingType string) error {
